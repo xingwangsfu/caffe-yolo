@@ -17,11 +17,13 @@ YOLO_tiny: https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp
 
 python yolo_main.py -m model_filename -w weight_filename -i image_filename
 
-replace model_filename with /your/path/to/yolo_small_deploy.prototxt or yolo_tiny_deploy.prototxt, weight_filename with /your/path/to/yolo_tiny.caffemodel or yolo_small.caffemodel and image_filename with the target image file
+replace model_filename with /your/path/to/yolo_small_deploy.prototxt or yolo_tiny_deploy.prototxt, 
+weight_filename with /your/path/to/yolo_tiny.caffemodel or yolo_small.caffemodel and image_filename with the target image file
 
 ## Requirements
 
    a) Caffe, pycaffe
+
    b) Opencv2
 
 ## Copyrights
@@ -29,5 +31,6 @@ replace model_filename with /your/path/to/yolo_small_deploy.prototxt or yolo_tin
 According to the LICENSE file of the original code,
 
    a) Me and original author hold no liability for any damages
+
    b) Do not use this on commercial!
 
