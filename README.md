@@ -27,7 +27,7 @@ If you want to create the caffemodel files from yolo's (.weights) files by your 
 
 * after that, run create_yolo_caffemodel.py to create the caffemodel from yolo's (.weight) files 
 
-  "python create_yolo_caffemodel.py -m train_val_prototxt.filename -w yoloweights_filename -o caffemodel_filename"
+  	* "python create_yolo_caffemodel.py -m train_val_prototxt.filename -w yoloweights_filename -o caffemodel_filename"
 
   replace train_val_prototxt.filename with /your/path/to/yolo_train_val.prototxt (yolo_small, yolo_tiny),
   yoloweights_filename with /your/path/to/yolo.weights (yolo-small, yolo-tiny), and caffemodel_filename with your output caffemodel name,
