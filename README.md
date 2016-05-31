@@ -15,9 +15,23 @@ YOLO_small: https://drive.google.com/file/d/0Bzy9LxvTYIgKa3ZHbnZPLUo0eWs/view?us
 
 YOLO_tiny: https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp=sharing
 
-## Usage
+## Convert yolo's (.weight) files to caffemodel
 
-python yolo_main.py -m model_filename -w weight_filename -i image_filename
+You can download the pretrained yolo weight files in the darknet official website (http://pjreddie.com/darknet/yolo/) 
+
+After that, run create_yolo_caffemodel.py to create the caffemodel from yolo's (.weight) files 
+"python create_yolo_caffemodel.py -m train_val_prototxt.filename -w yoloweights_filename -o caffemodel_filename"
+
+replace train_val_prototxt.filename with /your/path/to/yolo_train_val.prototxt (yolo_small, yolo_tiny),
+yoloweights_filename with /your/path/to/yolo.weights (yolo-small, yolo-tiny), and caffemodel_filename with your output caffemodel name,
+e.g.
+"python create_yolo_caffemodel.py -m yolo_train_val.prototxt -w yolo.weights -o yolo.caffemodel" 
+
+
+## Main file usage
+
+run yolo_main.py to do yolo object detection for the input image
+"python yolo_main.py -m model_filename -w weight_filename -i image_filename"
 
 replace model_filename with /your/path/to/yolo_small_deploy.prototxt or yolo_tiny_deploy.prototxt, 
 weight_filename with /your/path/to/yolo_tiny.caffemodel or yolo_small.caffemodel and image_filename with the target image file
