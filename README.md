@@ -1,4 +1,4 @@
-﻿## YOLO in caffe
+﻿# YOLO in caffe
 
 ## Introduction
 
@@ -17,9 +17,9 @@ YOLO_tiny: https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp
 
 ## Convert yolo's (.weight) files to caffemodel
 
-a) You can download the pretrained yolo weight files in the darknet official website (http://pjreddie.com/darknet/yolo/) 
+* You can download the pretrained yolo weight files in the darknet official website (http://pjreddie.com/darknet/yolo/) 
 
-b) After that, run create_yolo_caffemodel.py to create the caffemodel from yolo's (.weight) files 
+* After that, run create_yolo_caffemodel.py to create the caffemodel from yolo's (.weight) files 
 
   "python create_yolo_caffemodel.py -m train_val_prototxt.filename -w yoloweights_filename -o caffemodel_filename"
 
