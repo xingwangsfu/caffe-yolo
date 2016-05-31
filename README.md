@@ -21,7 +21,7 @@ These caffemodel files have been converted for you.
 
 ## Convert yolo's (.weight) files to caffemodel
 
-If you want to create the caffemodel files from yolo's (.weights) files by your own, 
+If you want to create the caffemodel files from yolo's (.weights) files on your own, 
 
 * first, you need to  download the pretrained yolo weight files in the darknet official website (http://pjreddie.com/darknet/yolo/) 
 
