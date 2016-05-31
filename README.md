@@ -40,7 +40,7 @@ If you want to create the caffemodel files from yolo's (.weights) files by your 
 
 run yolo_main.py to do yolo object detection for the input image
 
-"python yolo_main.py -m model_filename -w weight_filename -i image_filename"
+* "python yolo_main.py -m model_filename -w weight_filename -i image_filename"
 
 replace model_filename with /your/path/to/yolo_small_deploy.prototxt or yolo_tiny_deploy.prototxt, 
 weight_filename with /your/path/to/yolo_tiny.caffemodel or yolo_small.caffemodel and image_filename with the target image file
