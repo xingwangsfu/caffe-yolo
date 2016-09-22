@@ -8,7 +8,7 @@ Note, the caffe models are not trained in caffe, but converted from darknet's (.
 
 The converter is consisted of three steps:
 
-* initialize the caffe network and weights from .prototxt file
+* initialize the caffe network and weights from .prototxt file, which is generated from darknet's (.cfg) file
 * read the weights from pre-trained darknet's (.weight) file
 * replace the initialized weights with the weights in pre-trained darkenet's (.weight) file
 
