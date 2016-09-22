@@ -5,7 +5,12 @@
 This is a caffe implementation of the YOLO:Real-Time Object Detection
 
 Note, the caffe models are not trained in caffe, but converted from darknet's (.weight) files (http://pjreddie.com/darknet/yolo/).
- 
+
+The converter is consisted of three steps:
+
+* initialize the caffe network and weights from .prototxt file
+* read the weights from pre-trained darknet's (.weight) file
+* replace the initialized weights with the weights in pre-trained darkenet's (.weight) file
 
 ## Model files
 
