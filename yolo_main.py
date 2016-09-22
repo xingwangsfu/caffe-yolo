@@ -1,4 +1,9 @@
 import caffe
+GPU_ID = 0 # Switch between 0 and 1 depending on the GPU you want to use.
+caffe.set_mode_gpu()
+caffe.set_device(GPU_ID)
+# caffe.set_mode_cpu()
+from datetime import datetime
 import numpy as np
 import sys, getopt
 import cv2
@@ -135,7 +140,11 @@ def main(argv):
 	transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
 	transformer.set_transpose('data', (2,0,1))
 	transformer.set_channel_swap('data', (2,1,0))
+	start = datetime.now()
 	out = net.forward_all(data=np.asarray([transformer.preprocess('data', inputs)]))
+	end = datetime.now()
+	elapsedTime = end-start
+	print 'total time is " milliseconds', elapsedTime.total_seconds()*1000
 	print out.iteritems()
 	img_cv = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 	results = interpret_output(out['result'][0], img.shape[1], img.shape[0]) # fc27 instead of fc12 for yolo_small 
