@@ -64,3 +64,6 @@ According to the LICENSE file of the original code,
 
    * Do not use this on commercial!
 
+## TO DO
+
+Generate caffe prototxt files from darknet cfg files
