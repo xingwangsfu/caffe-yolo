@@ -139,7 +139,6 @@ def main(argv):
 	inputs = img
 	transformer = caffe.io.Transformer({'data': net.blobs['data'].data.shape})
 	transformer.set_transpose('data', (2,0,1))
-	transformer.set_channel_swap('data', (2,1,0))
 	start = datetime.now()
 	out = net.forward_all(data=np.asarray([transformer.preprocess('data', inputs)]))
 	end = datetime.now()
