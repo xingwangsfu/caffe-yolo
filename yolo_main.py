@@ -44,7 +44,7 @@ def interpret_output(output, img_width, img_height):
 	filter_mat_boxes = np.nonzero(filter_mat_probs)
 	boxes_filtered = boxes[filter_mat_boxes[0],filter_mat_boxes[1],filter_mat_boxes[2]]
 	probs_filtered = probs[filter_mat_probs]
-	classes_num_filtered = np.argmax(filter_mat_probs,axis=3)[filter_mat_boxes[0],filter_mat_boxes[1],filter_mat_boxes[2]] 
+	classes_num_filtered = np.argmax(probs,axis=3)[filter_mat_boxes[0],filter_mat_boxes[1],filter_mat_boxes[2]]
 
 	argsort = np.array(np.argsort(probs_filtered))[::-1]
 	boxes_filtered = boxes_filtered[argsort]

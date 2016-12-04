@@ -9,13 +9,6 @@ import caffe
 import numpy as np
 import sys, getopt
 
-def transpose_matrix(inputWeight, rows, cols):
-	inputWeight_t = np.zeros((rows*cols,1))
-	for x in xrange(rows):
-		for y in xrange(cols):
-			inputWeight_t[y*rows + x] = inputWeight[x*cols + y]
-	return inputWeight_t
-
 def main(argv):
 	model_filename = ''
 	yoloweight_filename = ''
@@ -53,20 +46,67 @@ def main(argv):
 	print netWeights.shape
 	count = 0
 	for pr in params:
-		biasSize = np.prod(net.params[pr][1].data.shape)
-		net.params[pr][1].data[...] = np.reshape(netWeights[count:count+biasSize], net.params[pr][1].data.shape)
-		count = count + biasSize
-		weightSize = np.prod(net.params[pr][0].data.shape)
-		if pr[0:2]=='co': # convolutional layer
-			net.params[pr][0].data[...] = np.reshape(netWeights[count:count+weightSize], net.params[pr][0].data.shape)
-		else: # fc layer
+		lidx = list(net._layer_names).index(pr)
+		layer = net.layers[lidx]
+		if count == netWeights.shape[0] and (layer.type != 'BatchNorm' and layer.type != 'Scale'):
+			print "WARNING: no weights left for %s" % pr
+			break
+		if layer.type == 'Convolution':
+			print pr+"(conv)"
+			# bias
+			if len(net.params[pr]) > 1:
+				bias_dim = net.params[pr][1].data.shape
+			else:
+				bias_dim = (net.params[pr][0].data.shape[0], )
+			biasSize = np.prod(bias_dim)
+			conv_bias = np.reshape(netWeights[count:count+biasSize], bias_dim)
+			if len(net.params[pr]) > 1:
+				assert(bias_dim == net.params[pr][1].data.shape)
+				net.params[pr][1].data[...] = conv_bias
+				conv_bias = None
+			count = count + biasSize
+			# batch_norm
+			next_layer = net.layers[lidx+1]
+			if next_layer.type == 'BatchNorm':
+				bn_dims = (3, net.params[pr][0].data.shape[0])
+				bnSize = np.prod(bn_dims)
+				batch_norm = np.reshape(netWeights[count:count+bnSize], bn_dims)
+				count = count + bnSize
+			# weights
 			dims = net.params[pr][0].data.shape
-			if transFlag: # need transpose for fc layers
-				net.params[pr][0].data[...] = np.reshape(transpose_matrix(netWeights[count:count+weightSize], dims[1],dims[0]), dims)
+			weightSize = np.prod(dims)
+			net.params[pr][0].data[...] = np.reshape(netWeights[count:count+weightSize], dims)
+			count = count + weightSize
+		elif layer.type == 'InnerProduct':
+			print pr+"(fc)"
+			# bias
+			biasSize = np.prod(net.params[pr][1].data.shape)
+			net.params[pr][1].data[...] = np.reshape(netWeights[count:count+biasSize], net.params[pr][1].data.shape)
+			count = count + biasSize
+			# weights
+			dims = net.params[pr][0].data.shape
+			weightSize = np.prod(dims)
+			if transFlag:
+				net.params[pr][0].data[...] = np.reshape(netWeights[count:count+weightSize], (dims[1], dims[0])).transpose()
 			else:
 				net.params[pr][0].data[...] = np.reshape(netWeights[count:count+weightSize], dims)
-		count = count + weightSize
-	print count
+			count = count + weightSize
+		elif layer.type == 'BatchNorm':
+			print pr+"(batchnorm)"
+			net.params[pr][0].data[...] = batch_norm[1]	# mean
+			net.params[pr][1].data[...] = batch_norm[2]	# variance
+			net.params[pr][2].data[...] = 1.0	# scale factor
+		elif layer.type == 'Scale':
+			print pr+"(scale)"
+			net.params[pr][0].data[...] = batch_norm[0]	# scale
+			batch_norm = None
+			if len(net.params[pr]) > 1:
+				net.params[pr][1].data[...] = conv_bias	# bias
+				conv_bias = None
+		else:
+			print "WARNING: unsupported layer, "+pr
+	if np.prod(netWeights.shape) != count:
+		print "ERROR: size mismatch: %d" % count
 	net.save(caffemodel_filename)		
 		
 if __name__=='__main__':	
