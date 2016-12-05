@@ -60,7 +60,3 @@ According to the LICENSE file of the original code,
    * Me and original author hold no liability for any damages
 
    * Do not use this on commercial!
-
-## ToDoList
-
-Generate caffe prototxt files from darknet cfg files
