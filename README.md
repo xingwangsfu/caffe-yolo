@@ -1,6 +1,8 @@
 ﻿# YOLO in caffe
  
-__Update 12-05-2016: Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. Batch norm layer is supported.__
+__Update 12-05-2016__: 
+
+__Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. Batch norm layer is supported.__
 
 ## Introduction
 
@@ -25,7 +27,7 @@ The converter is consisted of four steps:
 
 * first, you need to  download the pretrained yolo weight files (http://pjreddie.com/darknet/yolov1/) and .cfg files (https://github.com/pjreddie/darknet/tree/master/cfg/yolov1) 
 
-* run create_yolo_prototxt.py to crate .prototxt files
+* run create_yolo_prototxt.py to create .prototxt files
 
 * after that, run create_yolo_caffemodel.py to create the caffemodel from yolo's (.weight) files 
 
