@@ -23,9 +23,9 @@ The converter is consisted of four steps:
 
 ## Convert yolo's (.weight) files to caffemodel
 
-If you want to create the caffemodel files from yolo's (.weights) files on your own, 
+* first, you need to  download the pretrained yolo weight files (http://pjreddie.com/darknet/yolov1/) and .cfg files (https://github.com/pjreddie/darknet/tree/master/cfg/yolov1) 
 
-* first, you need to  download the pretrained yolo weight files in the darknet official website (http://pjreddie.com/darknet/yolo/) 
+* run create_yolo_prototxt.py to crate .prototxt files
 
 * after that, run create_yolo_caffemodel.py to create the caffemodel from yolo's (.weight) files 
 
