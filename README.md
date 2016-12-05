@@ -1,12 +1,12 @@
 ﻿# YOLO in caffe
+ 
+__Update 12-05-2016: Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. Batch norm layer is supported.__
 
 ## Introduction
 
 This is a caffe implementation of the YOLO:Real-Time Object Detection
 
 Note, the caffe models are not trained in caffe, but converted from darknet's (.weight) files (http://pjreddie.com/darknet/yolov1/).
-
-__Update 12-05-2016: Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. Batch norm layer is supported.__
 
 The converter is consisted of four steps:
 * create .prototxt files for caffe from  .cfg file in darkent 
