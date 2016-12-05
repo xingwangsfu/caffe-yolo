@@ -1,8 +1,6 @@
 ﻿# YOLO in caffe
  
-__Update 12-05-2016__: 
-
-__Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. Batch norm layer is supported.__
+__Update 12-05-2016__:  __Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. Batch norm layer is supported.__
 
 ## Introduction
 
