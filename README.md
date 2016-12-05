@@ -4,24 +4,21 @@
 
 This is a caffe implementation of the YOLO:Real-Time Object Detection
 
-Note, the caffe models are not trained in caffe, but converted from darknet's (.weight) files (http://pjreddie.com/darknet/yolo/).
+Note, the caffe models are not trained in caffe, but converted from darknet's (.weight) files (http://pjreddie.com/darknet/yolov1/).
 
-The converter is consisted of three steps:
+Currently, only yolo v1 (http://pjreddie.com/darknet/yolov1/) is supported. Yolo V2 (http://pjreddie.com/darknet/yolo/) is not supported. 
 
-* initialize the caffe network and weights from .prototxt file, which is generated from darknet's (.cfg) file
+The converter is consisted of four steps:
+* create .prototxt files for caffe from  .cfg file in darkent 
+* initialize the caffe network and weights from .prototxt file
 * read the weights from pre-trained darknet's (.weight) file
 * replace the initialized weights with the weights in pre-trained darkenet's (.weight) file
 
-## Model files
+## Usage 
 
-These caffemodel files have been converted for you.
-
-* YOLO: https://drive.google.com/file/d/0Bzy9LxvTYIgKMXdqS29HWGNLdGM/view?usp=sharing
-
-* YOLO_small: https://drive.google.com/file/d/0Bzy9LxvTYIgKa3ZHbnZPLUo0eWs/view?usp=sharing
-
-* YOLO_tiny: https://drive.google.com/file/d/0Bzy9LxvTYIgKNFEzOEdaZ3U0Nms/view?usp=sharing
-
+* run "create_yolo_prototxt.py" to create .prototxt files 
+* run "create_yolo_caffemodel.py" to create .caffemodel files
+* run "yolo_main.py" to call yolo in caffe
 
 
 ## Convert yolo's (.weight) files to caffemodel
