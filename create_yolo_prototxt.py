@@ -110,7 +110,7 @@ class CaffeScaleLayer(CaffeLayerGenerator):
 
 class CaffeReluLayer(CaffeLayerGenerator):
     def __init__(self, name, negslope=None):
-        super(CaffeReluLayer, self).__init__(name, 'Relu')
+        super(CaffeReluLayer, self).__init__(name, 'ReLU')
         self.negslope = negslope
     def write(self, f):
         param_str = ""
@@ -152,14 +152,17 @@ class CaffeProtoGenerator:
         self.layer = CaffeInputLayer(lname, items['channels'], items['width'], items['height'])
         self.layer.top.append( lname )
         self.add_layer( self.layer )
-    def add_convolution_layer(self, items):
+    def add_convolution_layer(self, items, padding=False):
         self.lnum += 1
         prev_blob = self.layer.top[0]
         lname = "conv"+str(self.lnum)
         filters = items['filters']
         ksize = items['size'] if 'size' in items else None
         stride = items['stride'] if 'stride' in items else None
-        pad = items['pad'] if 'pad' in items else None
+        if padding:
+            pad = str((int(ksize)-1)/2)
+        else:
+            pad = None
         bias = not bool(items['batch_normalize']) if 'batch_normalize' in items else True
         self.layer = CaffeConvolutionLayer( lname, filters, ksize=ksize, stride=stride, pad=pad, bias=bias )
         self.layer.bottom.append( prev_blob )
@@ -251,16 +254,19 @@ def convert(cfgfile, ptxtfile):
         #
         batchnorm_followed = False
         relu_followed = False
+        padding = False
         items = dict(parser.items(section))
         if 'batch_normalize' in items and items['batch_normalize']:
             batchnorm_followed = True
         if 'activation' in items and items['activation'] != 'linear':
             relu_followed = True
+        if 'pad' in items and items['pad'] == '1':
+            padding = True
         #
         if _section == 'net':
             gen.add_input_layer(items)
         elif _section == 'convolutional':
-            gen.add_convolution_layer(items)
+            gen.add_convolution_layer(items, padding)
             if batchnorm_followed:
                 gen.add_batchnorm_layer(items)
                 gen.add_scale_layer(items)
